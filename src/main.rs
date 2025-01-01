@@ -1,16 +1,26 @@
 use std::collections::HashMap;
 
-fn main(){
-    let mut users = HashMap::new();
-    
-    users.insert(String::from("armaan") , 21);
-    users.insert(String::from("ormon"), 3 );
+fn group_values_by_key(vec : Vec<(String, i32)>)-> HashMap<String, i32>{
+    let mut hm = HashMap::new();
 
-    let age_of_user = users.get("ormon");
-
-    match age_of_user{
-        Some(number) => println!("age of user: {}", number),
-        None => println!("User not found")
+    for (key, value) in vec{
+        hm.insert(key, value);
     }
+
+    return hm;
+
+}
+
+fn main(){
+   let pairs = vec![
+    (String::from("Armaan"),1),
+    (String::from("Ormon"), 2)
+   ];
+
+   println!("hashmap obtained :-");
+
+   for (key, value) in group_values_by_key(pairs){
+    println!("{} : {:?}", key, value);
+   }
 
 }
