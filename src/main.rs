@@ -4,42 +4,38 @@
 //     age : u8
 // }
 
-struct Rect{
-    width : u32,
-    height : u32
-}
+// struct Rect{
+//     width : u32,
+//     height : u32
+// }
 
-impl Rect{
-    fn area(&self)-> u32{
-        return self.width * self.height;
-    }
-}
+// impl Rect{
+//     fn area(&self)-> u32{
+//         return self.width * self.height;
+//     }
+// }
 
+enum Direction{
+    Up(String, f64), 
+    Down(String, f64)
+}
 
 fn main(){
-    // let name = String::from("Armaan");
-    // let len = get_string_length(name);
+   let new_direction = Direction::Up(String::from("Up"), 30.0);
+   let _down_direction: Direction = Direction::Down(String::from("Down"), 40.0);
+   
 
-    // println!("Lenght of name {}", len);
+   match new_direction{
+    Direction::Up(direction, distance)=>{
+        println!("Moving {}km in {} direction", distance, direction);
+    }
 
-    // let user = User{
-    //     first_name : String::from("Armaan"),
-    //     last_name : String::from("Verma"),
-    //     age : 18
-    // };
-
-
-    // println!("first name : {}", user.first_name);
-    // println!("last name : {}", user.last_name);
-    // println!("age : {}", user.age);
-
-    let rect1 = Rect {
-        width:  30,
-        height : 30
-    };
-
-    println!("Area of rectangle : {}", rect1.area())
+    Direction::Down(direction, distance)=>{
+        println!("Moving {}km in {} direction", distance, direction);
+    }
+   }
 }
+
 
 
 
