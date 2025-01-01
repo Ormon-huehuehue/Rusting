@@ -1,15 +1,13 @@
-use std::fs;
-
 
 fn main(){
-    let result = fs::read_to_string("hello.txt");
+    let s1 = String::from("Hello");
 
-    match result{
-        Ok(content)=>{
-            println!("File content : {}", content);
-        }
-        Err(error)=>{
-            println!("Error reading file : {}", error);
-        }
-    }
+    do_something(s1.clone());      
+    // s1 is moved to do_something into s2 and s1 is no longer valid
+
+    println!("{}", s1);
+}
+
+fn do_something(s2 : String){
+    println!("{}", s2)
 }
