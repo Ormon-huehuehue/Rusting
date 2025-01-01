@@ -1,13 +1,25 @@
-
 fn main(){
-    let s1 = String::from("Hello");
+    let mut vec = Vec::new();
 
-    do_something(s1.clone());      
-    // s1 is moved to do_something into s2 and s1 is no longer valid
+    vec.push(1);
+    vec.push(2);
+    vec.push(3);
+    vec.push(4);
 
-    println!("{}", s1);
+    even_values(&mut vec); // passing in a mutable reference to the vector
+
+    println!("Updated vector : {:?}", vec);
 }
 
-fn do_something(s2 : String){
-    println!("{}", s2)
+fn even_values(v : &mut Vec<i32>){
+
+    let mut i = 0 ;
+
+    while i < v.len(){
+        if v[i] % 2 != 0{
+            v.remove(i);
+        }else{
+            i += 1;
+        }
+    }
 }
