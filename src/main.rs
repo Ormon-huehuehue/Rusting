@@ -1,15 +1,20 @@
 fn main(){
-	let nums = vec![1,2,3];
-	let iter = nums.iter();    
+    let word = "ormon verma";
+    let word2 = find_first_word(word);
+    
+    println!("{}", word);
+    println!("{}", word2);
 
-    let iter2 = iter.map(|x| x+1);
+}
 
-    let nums2 : Vec<i32> = iter2.collect();
-
-    println!("nums2 : {:?}", nums2);
-
-    for i in iter2 {    //iter2 is no longer valid
-        println!("{}", i);
+fn find_first_word(word : &str)-> &str{
+    let mut index= 0 ;
+    for (_, i) in word.chars().enumerate() {
+        if i == ' '{
+            break;
+        }
+        index = index+1;
     }
-    println!("nums still intact : {:?}", nums);
+
+    return &word[0..index];
 }
