@@ -1,10 +1,14 @@
 fn main(){
 	let nums = vec![1,2,3];
-	let iter = nums.into_iter();    //ownership of nums transferred to iter
+	let iter = nums.iter();    
 
-    for val in iter{
+    let sum : i32 = iter.sum();     // sum() consumes the iterator
+
+    println!("{}", sum);
+
+    for val in iter{    //iter is no longer valid
         println!("{}", val);
     }
 
-    println!("{:?}", nums); //nums is no longer valid
+    println!("{:?}", nums); 
 }
