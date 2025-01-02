@@ -2,13 +2,14 @@ fn main(){
 	let nums = vec![1,2,3];
 	let iter = nums.iter();    
 
-    let sum : i32 = iter.sum();     // sum() consumes the iterator
+    let iter2 = iter.map(|x| x+1);
 
-    println!("{}", sum);
+    let nums2 : Vec<i32> = iter2.collect();
 
-    for val in iter{    //iter is no longer valid
-        println!("{}", val);
+    println!("nums2 : {:?}", nums2);
+
+    for i in iter2 {    //iter2 is no longer valid
+        println!("{}", i);
     }
-
-    println!("{:?}", nums); 
+    println!("nums still intact : {:?}", nums);
 }
