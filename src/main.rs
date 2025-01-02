@@ -1,9 +1,10 @@
 fn main(){
 	let nums = vec![1,2,3];
-	let mut iter = nums.iter();
+	let iter = nums.into_iter();    //ownership of nums transferred to iter
 
-    while let Some(value) = iter.next() {
-        println!("{}", value);
+    for val in iter{
+        println!("{}", val);
     }
-    println!("{:?}", nums);
+
+    println!("{:?}", nums); //nums is no longer valid
 }
