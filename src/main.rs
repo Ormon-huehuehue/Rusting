@@ -1,19 +1,17 @@
-trait Summary{
-    fn summarize(&self)->String{
-        return String::from("Summary")
+fn longest<'a>(str1 : &'a str, str2: &'a str) -> &'a str {
+    if str1.len() > str2.len() {
+        return str1;
+    } else {
+        return str2;
     }
 }
 
-struct Fix{}
-impl Summary for Fix{}
-
 fn main(){
-
-    let fix : Fix = Fix{};
-
-	notify(fix)
-}
-
-fn notify(u : impl Summary){
-	println!("{}", u.summarize());
-}
+    let longest_str;
+    let str1 = String::from("short");
+    {
+        let str2 = String::from("longer");
+        longest_str = longest(&str1, &str2);
+    }
+    println!("The longest string is: {}", longest_str);
+}   
