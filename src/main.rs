@@ -1,17 +1,26 @@
-fn longest<'a>(str1 : &'a str, str2: &'a str) -> &'a str {
-    if str1.len() > str2.len() {
-        return str1;
-    } else {
-        return str2;
-    }
-}
+use std::{thread, time::Duration};
 
 fn main(){
-    let longest_str;
-    let str1 = String::from("short");
-    {
-        let str2 = String::from("longer");
-        longest_str = longest(&str1, &str2);
+    thread::spawn(|| {
+        for i in 1..10 {
+            println!("Hi number {i} from the spawned thread!");
+            thread::sleep(Duration::from_millis(1));
+        }
+    });
+
+    let async_handle = thread::spawn(|| {
+        for i in 1..200 {
+            println!("Hi number {i} from the async spawned thread!");
+            thread::sleep(Duration::from_millis(1));
+        }
+    });
+
+    async_handle.join().unwrap();
+
+
+
+    for i in 1..500{
+        println!("Hi number {i} from the main thread!");
+        thread::sleep(Duration::from_millis(1));
     }
-    println!("The longest string is: {}", longest_str);
-}   
+}
