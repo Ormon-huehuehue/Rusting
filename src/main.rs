@@ -1,26 +1,14 @@
-use std::{thread, time::Duration};
+use std::sync::mpsc;
+use std::thread;
 
 fn main(){
-    thread::spawn(|| {
-        for i in 1..10 {
-            println!("Hi number {i} from the spawned thread!");
-            thread::sleep(Duration::from_millis(1));
-        }
-    });
+	let (tx, rx) = mpsc::channel();
 
-    let async_handle = thread::spawn(|| {
-        for i in 1..200 {
-            println!("Hi number {i} from the async spawned thread!");
-            thread::sleep(Duration::from_millis(1));
-        }
-    });
+	thread::spawn(move || {
+		let val = String::from("hi");
+		tx.send(val).unwrap();
+	});
 
-    async_handle.join().unwrap();
-
-
-
-    for i in 1..500{
-        println!("Hi number {i} from the main thread!");
-        thread::sleep(Duration::from_millis(1));
-    }
+	let received = rx.recv().unwrap();
+	println!("Got : {received}");
 }
