@@ -1,31 +1,19 @@
-use std::sync::mpsc;
-use std::thread;
+use std::future;
 
-fn main(){
-	let (tx, rx) = mpsc::channel();
+use tokio::time::{sleep, Duration};
 
-	for i in 0..8 {
-        let producer = tx.clone();
+async fn task1(){
+    sleep(Duration::from_secs(1)).await;
+    println!("Task 1 complete");
+}
 
-        thread::spawn(move || {
-            let mut sum = 0;
-            for j in i*1000..(i+1)*1000-1{
-                sum +=j;
-            }
+async fn task2(){
+    sleep(Duration::from_secs(2)).await;
+    println!("Task 2 complete");
+}
 
-            producer.send(sum);
-        });
-
-    }
-
-    drop(tx);  //drop tx so that the receiver can know that there is no more data to receive
-
-
-    let mut final_sum = 0;
-    for value in rx{
-        println!("Received: {}", value);
-        final_sum += value;
-    }
-
-    println!("Final sum is: {}", final_sum);
+#[tokio::main]
+async fn main() {
+    // Runs both tasks concurrently
+    tokio::join!(task1(), task2());
 }
